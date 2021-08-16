@@ -1,0 +1,58 @@
+@use "./variable" as *;
+
+.bg__darkblue {
+    background-color: $color-darkblue;
+}
+.bg__blue {
+    background-color: $color-blue;
+}
+.bg__orange {
+    background-color: $color-orange;
+}
+.font-size-normal {
+    font-size: 1rem;
+}
+.color__orange {
+    color: $color-orange !important;
+}
+.color__invert {
+    color: $color-white;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6 {
+        color: $color-white;
+    }
+
+    a {
+        color: $color-orange;
+
+        &:hover,
+        &:active {
+            color: $color-white;
+        }
+    }
+}
+.max-width {
+    &--sm {
+        max-width: 576px;
+    }
+    &--md {
+        max-width: 768px;
+    }
+    &--lg {
+        max-width: 992px;
+    }
+    &--xl {
+        max-width: 1200px;
+    }
+}

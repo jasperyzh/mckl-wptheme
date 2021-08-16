@@ -2,7 +2,8 @@
 
 ## Project setup
 ```
-npm install
+modified twenty-twenty-one theme
+merge with basic vue-cli (vue2)
 ```
 
 ### Compiles and hot-reloads for development

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="300" height="300" viewBox="0 0 300 300">
+  <defs>
+    <clipPath id="clip-Artboard_1">
+      <rect width="300" height="300"/>
+    </clipPath>
+  </defs>
+  <g id="Artboard_1" data-name="Artboard – 1" clip-path="url(#clip-Artboard_1)">
+    <rect width="300" height="300" fill="#fff"/>
+    <g id="Group_1354" data-name="Group 1354" transform="translate(-239 -2247.302)">
+      <g id="Group_1151" data-name="Group 1151" transform="translate(257 2257.302)">
+        <g id="Group_1117" data-name="Group 1117" transform="translate(0 0)">
+          <g id="Group_1114" data-name="Group 1114" transform="translate(0 95.842)">
+            <path id="Path_1063" data-name="Path 1063" d="M198.555,471.95l2.962-40.48L152.645,388.03s-7.4-6.911-5.924-24.683,6.418-66.149,6.418-66.149,1.261-10.97,11.793-9.215,10.751,9.434,10.751,12.506-1.661,62.749-1.661,62.749l27.5,25.45" transform="translate(-146.525 -287.793)" fill="none" stroke="#7eccff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+            <path id="Path_1064" data-name="Path 1064" d="M270.287,500.673V430.793a27.3,27.3,0,0,0-12.506-23.914c-13.822-9-44.319-33.349-44.319-33.349s-15.358-12.945-23.615,3.05" transform="translate(-161.927 -316.515)" fill="none" stroke="#7eccff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+          </g>
+          <g id="Group_1115" data-name="Group 1115" transform="translate(156.591 95.842)">
+            <path id="Path_1065" data-name="Path 1065" d="M475.318,471.95l-2.962-40.48,48.872-43.441s7.4-6.911,5.923-24.683-6.417-66.149-6.417-66.149-1.262-10.97-11.793-9.215-10.751,9.434-10.751,12.506,1.661,62.749,1.661,62.749l-27.5,25.45" transform="translate(-418.953 -287.793)" fill="none" stroke="#7eccff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+            <path id="Path_1066" data-name="Path 1066" d="M389.528,500.673V430.793a27.3,27.3,0,0,1,12.506-23.914c13.822-9,44.319-33.349,44.319-33.349s15.358-12.945,23.615,3.05" transform="translate(-389.495 -316.515)" fill="none" stroke="#7eccff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+          </g>
+          <g id="Group_1116" data-name="Group 1116" transform="translate(49.213 0)">
+            <rect id="Rectangle_2452" data-name="Rectangle 2452" width="47.488" height="47.488" transform="translate(88.325 83.72) rotate(45)" fill="#fff" stroke="#7eccff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+            <rect id="Rectangle_2453" data-name="Rectangle 2453" width="47.488" height="47.488" transform="translate(33.579 28.973) rotate(45)" fill="#fff" stroke="#7eccff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+            <rect id="Rectangle_2454" data-name="Rectangle 2454" width="47.488" height="47.488" transform="translate(125.577 0) rotate(45)" fill="#fff" stroke="#7eccff" stroke-linecap="round" stroke-linejoin="round" stroke-width="8"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
