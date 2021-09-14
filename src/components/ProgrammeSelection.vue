@@ -1,5 +1,11 @@
 <template>
   <section id="programme-selection" class="py-5">
+    <!-- <pre>{{ categories }}</pre> -->
+
+    <div>
+      <!-- <p v-for="(cat, index) in categories" :key="`cat-${index}`">
+      </p> -->
+    </div>
     <!-- <div class="dropdown">
       <button
         class="btn btn-dropdown dropdown-toggle"
@@ -30,7 +36,7 @@
     <div class="container-fluid">
       <div
         class="row bg__orange overflow-hidden my-5 d-none d-lg-block"
-        v-for="(category, index) in programmes_category"
+        v-for="(category, index) in categories"
         :key="category.id"
         :id="category.slug"
       >
@@ -44,7 +50,7 @@
               <ul class="list-group">
                 <li
                   class="list-group-item"
-                  v-for="programme in category.programmes"
+                  v-for="programme in courses[index]"
                   :key="programme.id"
                   @mouseover="
                     currentProg[category.id] = {
@@ -78,8 +84,8 @@
         </article>
       </div>
 
-      <!-- mobile -->
-      <div
+      <!-- mobile-start -->
+      <!-- <div
         class="row overflow-hidden my-5 d-lg-none"
         v-for="category in programmes_category"
         :key="`mobile-${category.id}`"
@@ -122,7 +128,8 @@
             </div>
           </div>
         </article>
-      </div>
+      </div> -->
+      <!-- mobile-end -->
     </div>
   </section>
 </template>
@@ -139,9 +146,16 @@ export default {
 
     // http://localhost/mckl/wp-json/wp/v2/programme?programme_category=5
 
-    // get programme_category
+    this.all_categories = await Axios.get(
+      `${baseUrl}wp/v2/programme_category?per_page=5`
+    );
+    console.log(this.all_categories);
+
+    this.all_courses = await this.get_courses(this.all_categories.data);
+    console.log(this.all_courses);
+
+    /*    // get programme_category
     this.programmes_category = await this.loadProgrammeCategory(baseUrl);
-    console.log(this.programmes_category);
 
     // To Section
     const navLinks = document.querySelectorAll(".dropdown-menu__programme a");
@@ -169,44 +183,47 @@ export default {
           });
         };
       });
-    }, 100);
+    }, 100); */
   },
   methods: {
-    async loadProgrammeCategory(baseUrl) {
-      var get_category = await Axios.get(
-        `${baseUrl}wp/v2/programme_category?per_page=5`
-      );
+    async get_courses(cats) {
+      // prepare async function to Promise.all
+      let loop_through_cat = [];
 
-      var result = [];
-      for (const [i, cat] of get_category.data.entries()) {
-        const contents = await Axios.get(
-          cat._links["wp:post_type"][0].href +
-            "&orderby=menu_order&order=asc"
-        );
-        //  const contents = await Axios.get(
-        //   cat._links["wp:post_type"][0].href +
-        //     "&filter[orderby]=menu_order&order=asc"
-        // );
+      // loop through cats, create async function
+      cats.forEach(async (item, index) => {
+        loop_through_cat[index] = (async function () {
+          const cat_course = await Axios.get(
+            cats[index]._links["wp:post_type"][0].href +
+              "&orderby=menu_order&order=asc"
+          );
+          return cat_course.data;
+        })();
+      });
+      console.log(loop_through_cat);
 
+      // execute all the async function
+      const res = await Promise.all(loop_through_cat);
 
-        // sort contents by "menu_order" - with .map/.filter
-
-        result[i] = {
-          name: cat.name,
-          id: cat.id,
-          description: cat.description,
-          slug: cat.slug,
-          programmes: contents.data,
-        };
-      }
-      return result;
+      return res;
     },
   },
   data() {
     return {
       programmes_category: [],
       currentProg: [],
+      all_categories: null,
+      all_courses: {},
     };
+  },
+  computed: {
+    categories() {
+      if (this.all_categories === null) return;
+      return this.all_categories.data;
+    },
+    courses() {
+      return this.all_courses;
+    },
   },
 };
 </script>

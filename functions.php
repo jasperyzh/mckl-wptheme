@@ -119,3 +119,4 @@ require get_template_directory() . '/inc/mckl-restapi.php';
 require get_template_directory() . '/inc/mckl-cpt-programme.php';
 
 require get_template_directory() . '/inc/snippet-bootstrap-pagination.php';
+

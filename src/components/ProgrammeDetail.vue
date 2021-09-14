@@ -1,5 +1,5 @@
 <template>
-  <section id="programme-detail" class="logo-spacing-desktop">
+  <section id="programme-detail" class="logo-spacing-desktop" v-if="acf != null">
     <div class="container-fluid">
       <div class="row">
         <div class="col">
@@ -65,7 +65,7 @@ export default {
     return {
       //   secret: {},
       content: {},
-      acf: {},
+      acf: null,
       programme_category: {},
     };
   },

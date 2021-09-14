@@ -1,16 +1,18 @@
 <template>
   <section id="post-news" class="color__invert">
     <div class="container-lg">
-      <div class="row">
+      <div class="row row-cols-1">
+        <!-- start row -->
+
         <div
-          class="col my-2 my-lg-0 px-lg-2"
+          class="col my-2 px-lg-2"
           v-for="(item, index) in posts"
           :key="`news-${index}`"
         >
           <div class="card">
-            <div class="row no-gutters">
-              <div class="col-md-4">
-                <figure class="ratio--16x9 h-100 overflow-hidden">
+            <div class="row no-gutters flex-md-nowrap">
+              <div class="col-12 col-sm-auto col-md-5 mx-auto d-flex align-items-center">
+                <figure class="ratio--16x9 overflow-hidden">
                   <img
                     class="object-fit-cover"
                     :src="
@@ -22,7 +24,7 @@
                   />
                 </figure>
               </div>
-              <div class="col-md-8 bg__blue">
+              <div class="col-12 col-sm-auto flex-fill mx-auto bg__blue">
                 <div class="card-body">
                   <a :href="item.link">
                     <h5 class="card-title h6" v-html="item.title.rendered"></h5>
@@ -36,6 +38,7 @@
             </div>
           </div>
         </div>
+        <!-- end row -->
       </div>
     </div>
   </section>
