@@ -23,7 +23,7 @@
             }}</span>
           </div>
 
-          <p class="lead mb-0">Next Intake</p>
+          <p class="lead mb-0" v-if="acf['Intake']">Next Intake</p>
           <h4 class="font-weight-bold">{{ acf["Intake"] }}</h4>
 
           <a

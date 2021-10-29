@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
       autoplayTimeout: 8000,
       autoplayButtonOutput: false,
       autoplayHoverPause: true,
-      loop: true,
+      // loop: true,
       navPosition: "bottom",
-      mouseDrag: true,
+      // mouseDrag: true,
       lazyload: true,
       controlsText: [
         `<i class="eicon-chevron-left" aria-hidden="true"></i>`,
@@ -53,21 +53,25 @@ Vue.use({
 })
 
 import ProgrammeSelection from "./components/ProgrammeSelection.vue";
+import ProgrammeSelectionDropdown from "./components/ProgrammeSelectionDropdown.vue";
 import WhyMckl from "./components/WhyMckl.vue";
 import PostNews from "./components/PostNews.vue";
 import PostEvents from "./components/PostEvents.vue";
 import ProgrammeLead from "./components/ProgrammeLead.vue";
 import ProgrammeDetail from "./components/ProgrammeDetail.vue";
+import ContentTimeline from "./components/ContentTimeline.vue";
 
 Vue.config.productionTip = false;
 
 let vueApp = {
   "#programme-selection": ProgrammeSelection,
+  "#programme-selection-dropdown": ProgrammeSelectionDropdown,
   "#why-mckl": WhyMckl,
   "#post-news": PostNews,
   "#post-events": PostEvents,
   "#programme-lead": ProgrammeLead,
   "#programme-detail": ProgrammeDetail,
+  "#content-timeline": ContentTimeline,
 
 };
 

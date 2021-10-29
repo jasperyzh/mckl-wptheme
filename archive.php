@@ -16,6 +16,8 @@ $description = get_the_archive_description();
 $term = get_queried_object();
 $highlight_post = get_field('highlight_post', $term);
 // print_r($highlight_post);
+// echo get_the_post_thumbnail($highlight_post->ID, 'medium');
+// print_r($term->slug);
 
 // Remove category, tag, name etc from name of archives
 function mckl_archive_title($title)
@@ -47,16 +49,35 @@ add_filter('get_the_archive_title', 'mckl_archive_title');
 	</header><!-- .page-header -->
 
 	<!-- highlight post -->
-	<?php if ($highlight_post) : ?>
+	<?php
+
+	// highlight title
+	switch ($term->slug) {
+		case "events":
+			$highlight_title = "Highlighted Event";
+			break;
+		case "news":
+			$highlight_title = "Latest News";
+			break;
+		default:
+			$highlight_title = "Latest";
+	}
+
+	if ($highlight_post) :
+
+	?>
 		<div class="container">
 			<div class="card mb-3 shadow">
 				<div class="row no-gutters">
 					<div class="col-md-6">
 						<figure class="w-100 h-100 ratio--16x9 object-fit-center">
 							<?php
-							if (has_post_thumbnail()) {
-								the_post_thumbnail($highlight_post->ID, 'full', array('loading' => false));
+							$thumb = get_the_post_thumbnail($highlight_post->ID, 'medium');
+							if ($thumb) {
+								// the_post_thumbnail($highlight_post->ID, 'full', array('loading' => false));
+								echo $thumb;
 							} else {
+
 							?>
 								<img src="<?php echo get_site_url(); ?>/wp-content/uploads/2021/07/mckl-logo.jpg" alt="MCKL placeholder">
 							<?php
@@ -66,8 +87,10 @@ add_filter('get_the_archive_title', 'mckl_archive_title');
 					</div>
 					<div class="col-md-6">
 						<div class="card-body bg__blue color__invert h-100 p-md-5">
-							<h4 class="color__orange">Upcoming Event</h4>
-							<h5 class="card-title"><?php echo $highlight_post->post_title; ?></h5>
+							<h4 class="color__orange"><?php echo $highlight_title; ?></h4>
+							<a href="<?php the_permalink($highlight_post->ID); ?>">
+								<h5 class="card-title"><?php echo $highlight_post->post_title; ?></h5>
+							</a>
 							<?php if ($highlight_post->post_excerpt) : ?>
 								<p class="card-text"><?php echo $highlight_post->post_excerpt; ?></p>
 							<?php endif; ?>

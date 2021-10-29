@@ -91,7 +91,12 @@
 		<div class="row">
 			<div class="col-12 col-md">
 				<p>
-					<small class="d-block">Copyright © 2021 MCKL All Rights Reserved. | Reg.No: DK144(W)</small>
+					<!-- <small class="d-block">Copyright © 2021 MCKL All Rights Reserved. | Reg.No: DK144(W)</small> -->
+					<small>
+						© 2021 Methodist College Kuala Lumpur (DK144(W)) All Rights Reserved.
+						<br />
+						Wesleyan Education Services Sdn Bhd (200101005044 / 540800-U)
+					</small>
 				</p>
 			</div>
 		</div>

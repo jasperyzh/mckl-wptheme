@@ -1,46 +1,13 @@
 <template>
   <section id="programme-selection" class="py-5">
-    <!-- <pre>{{ categories }}</pre> -->
-
-    <div>
-      <!-- <p v-for="(cat, index) in categories" :key="`cat-${index}`">
-      </p> -->
-    </div>
-    <!-- <div class="dropdown">
-      <button
-        class="btn btn-dropdown dropdown-toggle"
-        type="button"
-        id="dropdown-programme"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        Choose A Programme
-      </button>
-      <div
-        class="dropdown-menu dropdown-menu__programme"
-        aria-labelledby="dropdown-programme"
-      >
-        <a class="dropdown-item" href="#pre-u-foundation"
-          >Pre-University / Foundation</a
-        >
-        <a class="dropdown-item" href="#diploma-degree">Diploma &amp; Degree</a>
-        <a class="dropdown-item" href="#professional-accounting"
-          >Professional Accounting</a
-        >
-        <a class="dropdown-item" href="#professional-development"
-          >Professional Development</a
-        >
-      </div>
-    </div> -->
     <div class="container-fluid">
       <div
         class="row bg__orange overflow-hidden my-5 d-none d-lg-block"
-        v-for="(category, index) in categories"
+        v-for="(category, index) in enabled_categories"
         :key="category.id"
         :id="category.slug"
       >
-        <article class="container">
+        <article class="container" v-if="category.acf.show_category">
           <div class="row py-4 py-md-5 row__bg-white">
             <div class="col-lg-6">
               <h3 class="font-weight-bold" v-html="category.name"></h3>
@@ -48,6 +15,25 @@
               <p class="mb-4" v-html="category.description"></p>
 
               <ul class="list-group">
+                <span v-show="loading">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    fill="#ffffff"
+                    class="bi bi-arrow-repeat rotating"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+                    />
+                  </svg>
+                </span>
+
                 <li
                   class="list-group-item"
                   v-for="programme in courses[index]"
@@ -69,15 +55,32 @@
             </div>
             <div class="col-lg-6">
               <figure class="figure__full-width object-fit-center mb-4">
+                <span v-if="!category.acf.page_banner">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="48"
+                    height="48"
+                    fill="#ffffff"
+                    class="bi bi-arrow-repeat rotating"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"
+                    />
+                    <path
+                      fill-rule="evenodd"
+                      d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+                    />
+                  </svg>
+                </span>
                 <img
+                  v-else
                   class=""
-                  :src="
-                    require(`../assets/images/programme_selection/ph-${
-                      index + 1
-                    }.jpg`)
-                  "
-                  alt=""
+                  :src="category.acf.page_banner.sizes.large"
+                  :alt="category.acf.page_banner.alt"
                 />
+
+                <!-- <pre v-else>{{ category.acf.page_banner }}</pre> -->
               </figure>
             </div>
           </div>
@@ -85,9 +88,9 @@
       </div>
 
       <!-- mobile-start -->
-      <!-- <div
+      <div
         class="row overflow-hidden my-5 d-lg-none"
-        v-for="category in programmes_category"
+        v-for="(category, index) in enabled_categories"
         :key="`mobile-${category.id}`"
         :id="`mobile-${category.slug}`"
       >
@@ -102,7 +105,7 @@
           <div class="row bg__orange py-4">
             <div class="col">
               <div
-                v-for="programme in category.programmes"
+                v-for="programme in courses[index]"
                 :key="programme.id"
                 @mouseover="
                   currentProg[category.id] = {
@@ -128,7 +131,7 @@
             </div>
           </div>
         </article>
-      </div> -->
+      </div>
       <!-- mobile-end -->
     </div>
   </section>
@@ -140,19 +143,16 @@ export default {
   async mounted() {
     const baseUrl = window.secret.restUrl;
 
-    // all programmes
-    // const res = await Axios.get(`${baseUrl}wp/v2/programme?per_page=99`);
-    // console.log(res.data);
-
-    // http://localhost/mckl/wp-json/wp/v2/programme?programme_category=5
-
+    // sample link - http://localhost/mckl/wp-json/wp/v2/programme?programme_category=5
     this.all_categories = await Axios.get(
-      `${baseUrl}wp/v2/programme_category?per_page=5`
+      `${baseUrl}wp/v2/programme_category?per_page=99`
     );
-    console.log(this.all_categories);
+    // console.log(this.all_categories);
 
     this.all_courses = await this.get_courses(this.all_categories.data);
+
     console.log(this.all_courses);
+    // console.log(this.all_courses);
 
     /*    // get programme_category
     this.programmes_category = await this.loadProgrammeCategory(baseUrl);
@@ -192,24 +192,38 @@ export default {
 
       // loop through cats, create async function
       cats.forEach(async (item, index) => {
-        loop_through_cat[index] = (async function () {
-          const cat_course = await Axios.get(
-            cats[index]._links["wp:post_type"][0].href +
-              "&orderby=menu_order&order=asc"
+        // console.log(item.count);
+        if (item.count > 0) {
+          loop_through_cat.push(
+            (async function () {
+              const cat_course = await Axios.get(
+                cats[index]._links["wp:post_type"][0].href +
+                  "&orderby=menu_order&order=asc"
+              );
+              return cat_course.data;
+            })()
           );
-          return cat_course.data;
-        })();
+          // loop_through_cat[index] = (async function () {
+          //   const cat_course = await Axios.get(
+          //     cats[index]._links["wp:post_type"][0].href +
+          //       "&orderby=menu_order&order=asc"
+          //   );
+          //   return cat_course.data;
+          // })();
+        }
       });
-      console.log(loop_through_cat);
+      // console.log(loop_through_cat);
 
       // execute all the async function
       const res = await Promise.all(loop_through_cat);
 
+      this.loading = false;
       return res;
     },
   },
   data() {
     return {
+      loading: true,
       programmes_category: [],
       currentProg: [],
       all_categories: null,
@@ -217,11 +231,22 @@ export default {
     };
   },
   computed: {
-    categories() {
+    enabled_categories() {
+      if (this.all_categories === null) return;
+      let output = this.all_categories.data;
+      output = output.filter(
+        (programme_category) =>
+          programme_category.acf.show_category == true &&
+          programme_category.count > 0
+      );
+      return output;
+    },
+    /*   categories() {
       if (this.all_categories === null) return;
       return this.all_categories.data;
-    },
+    }, */
     courses() {
+      if (this.all_courses === null) return;
       return this.all_courses;
     },
   },
@@ -311,5 +336,16 @@ export default {
       }
     }
   }
+}
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  animation: rotating 2s linear infinite;
 }
 </style>
