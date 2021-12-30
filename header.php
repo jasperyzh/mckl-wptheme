@@ -103,19 +103,8 @@
 					</nav><!-- #site-navigation -->
 				<?php endif; ?>
 
-				<?php
-				$pykett_dropdown_temporary_disabled = false;
-				if (is_front_page() && $pykett_dropdown_temporary_disabled) :
-				?>
-					<div class="dropdown site-header__dropdown">
-						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Kuala Lumpur Campus
-						</button>
-						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<a class="dropdown-item" href="#">Pykett Campus</a>
-						</div>
-					</div>
-
+				<?php if (is_front_page()) : ?>
+					<section id="campus-dropdown"></section>
 				<?php endif; ?>
 
 			</nav>

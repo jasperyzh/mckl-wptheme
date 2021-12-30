@@ -27,9 +27,15 @@
 		<div class="row row-cols-1 row-cols-lg-5">
 			<div class="col">
 
-				<figure class="mx-auto my-3" style="max-width: 280px;">
+				<!-- <figure class="mx-auto my-3" style="max-width: 280px;">
 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/dist/img/logo-mckl-horizontal-white.svg" alt="Logo of MCKL">
-				</figure>
+				</figure> -->
+
+				<?php if (is_active_sidebar('footer__logo')) : ?>
+					<aside id="footer__logo">
+						<?php dynamic_sidebar('footer__logo'); ?>
+					</aside>
+				<?php endif; ?>
 
 			</div>
 
@@ -90,14 +96,19 @@
 
 		<div class="row">
 			<div class="col-12 col-md">
-				<p>
-					<!-- <small class="d-block">Copyright © 2021 MCKL All Rights Reserved. | Reg.No: DK144(W)</small> -->
+
+				<?php if (is_active_sidebar('footer__copy')) : ?>
+					<aside id="footer__copy">
+						<?php dynamic_sidebar('footer__copy'); ?>
+					</aside>
+				<?php endif; ?>
+				<!-- <p>
 					<small>
 						© 2021 Methodist College Kuala Lumpur (DK144(W)) All Rights Reserved.
 						<br />
 						Wesleyan Education Services Sdn Bhd (200101005044 / 540800-U)
 					</small>
-				</p>
+				</p> -->
 			</div>
 		</div>
 	</div>

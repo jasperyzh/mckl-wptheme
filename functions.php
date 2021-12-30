@@ -70,10 +70,17 @@ function wp_enqueue()
 		'stylesheetDirectory' => get_stylesheet_directory(),
 
 		// get page_id
+		'is_front_page' => is_front_page(),
 		'pageId' => get_the_ID(),
+
+		'mckl_url' => get_site_url(1),
+		'mcpykett_url' => get_site_url(1, "/pykett"),
 
 		// get term_id
 		'termId' => (!empty(get_queried_object())) ? get_queried_object()->term_id : "",
+
+		// multisite
+		'currentBlogId' => get_current_blog_id()
 	));
 }
 
@@ -111,6 +118,8 @@ add_theme_support('custom-logo', [
 	'unlink-homepage-logo' => true,
 ]);
 
+add_theme_support('widgets');
+
 
 require get_template_directory() . '/inc/mckl-menu-primary.php';
 
@@ -120,3 +129,38 @@ require get_template_directory() . '/inc/mckl-cpt-programme.php';
 
 require get_template_directory() . '/inc/snippet-bootstrap-pagination.php';
 
+
+// add widgets
+
+// register Foo_Widget widget
+// function register_foo_widget() {
+//     register_widget( 'Foo_Widget' );
+// }
+// add_action( 'widgets_init', 'register_foo_widget' );
+
+add_action('widgets_init', 'register_sidebars_mckl');
+function register_sidebars_mckl()
+{
+	register_sidebar(
+		array(
+			'id'            => 'footer__logo',
+			'name'          => __('Footer Logo Area'),
+			'description'   => __('A widget area for Footer Logo.'),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>',
+		)
+	);
+	register_sidebar(
+		array(
+			'id'            => 'footer__copy',
+			'name'          => __('Footer Copy Area'),
+			'description'   => __('A widget area for Footer Copy.'),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			// 'before_title'  => '<h3 class="widget-title">',
+			// 'after_title'   => '</h3>',
+		)
+	);
+}

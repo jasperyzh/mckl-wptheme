@@ -60,6 +60,7 @@ import PostEvents from "./components/PostEvents.vue";
 import ProgrammeLead from "./components/ProgrammeLead.vue";
 import ProgrammeDetail from "./components/ProgrammeDetail.vue";
 import ContentTimeline from "./components/ContentTimeline.vue";
+import CampusDropdown from "./components/CampusDropdown.vue";
 
 Vue.config.productionTip = false;
 
@@ -72,6 +73,7 @@ let vueApp = {
   "#programme-lead": ProgrammeLead,
   "#programme-detail": ProgrammeDetail,
   "#content-timeline": ContentTimeline,
+  "#campus-dropdown": CampusDropdown,
 
 };
 
