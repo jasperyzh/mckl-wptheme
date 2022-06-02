@@ -11,10 +11,22 @@
         >
           <div class="card">
             <div class="row no-gutters flex-md-nowrap">
-              <div class="col-12 col-sm-auto col-md-5 mx-auto d-flex align-items-center">
+              <div
+                class="
+                  col-12 col-sm-auto col-md-5
+                  mx-auto
+                  d-flex
+                  align-items-center
+                "
+              >
                 <figure class="ratio--16x9 overflow-hidden">
                   <img
-                    class="object-fit-cover"
+                    style="
+                      object-fit: cover;
+                      width: 100%;
+                      height: 100%;
+                      object-position: center center;
+                    "
                     :src="
                       item.featured_media_url
                         ? item.featured_media_url

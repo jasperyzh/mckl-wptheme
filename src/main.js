@@ -5,7 +5,6 @@ import SiteHeader from "./js/SiteHeaderSlim";
 import { tns } from "tiny-slider/src/tiny-slider";
 
 document.addEventListener('DOMContentLoaded', () => {
-
   // site-header
   if (document.querySelector(".site-header")) {
     new SiteHeader(".site-header", 20);
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // images
-import "./assets/images/logo-mckl-horizontal-white.svg";
+// import "./assets/images/logo-mckl-horizontal-white.svg";
 
 import Vue from 'vue'
 import Axios from "axios";
@@ -52,7 +51,8 @@ Vue.use({
   }
 })
 
-import ProgrammeSelection from "./components/ProgrammeSelection.vue";
+// import ProgrammeSelection from "./components/ProgrammeSelection.vue";
+import ProgrammeSelection2 from "./components/ProgrammeSelection2.vue";
 import ProgrammeSelectionDropdown from "./components/ProgrammeSelectionDropdown.vue";
 import WhyMckl from "./components/WhyMckl.vue";
 import PostNews from "./components/PostNews.vue";
@@ -65,7 +65,8 @@ import CampusDropdown from "./components/CampusDropdown.vue";
 Vue.config.productionTip = false;
 
 let vueApp = {
-  "#programme-selection": ProgrammeSelection,
+  // "#programme-selection": ProgrammeSelection,
+  "#programme-selection2": ProgrammeSelection2,
   "#programme-selection-dropdown": ProgrammeSelectionDropdown,
   "#why-mckl": WhyMckl,
   "#post-news": PostNews,
@@ -74,7 +75,6 @@ let vueApp = {
   "#programme-detail": ProgrammeDetail,
   "#content-timeline": ContentTimeline,
   "#campus-dropdown": CampusDropdown,
-
 };
 
 document.addEventListener("DOMContentLoaded", () => {

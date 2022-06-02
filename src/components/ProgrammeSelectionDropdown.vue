@@ -15,9 +15,9 @@
       aria-labelledby="dropdown-programme"
     >
       <a
+        v-for="category in categories"
         :href="`#${category.slug}`"
         class="dropdown-item"
-        v-for="category in enabled_categories"
         :key="category.id"
         v-html="category.name"
       >
@@ -25,33 +25,38 @@
     </div>
   </div>
 </template>
-
 <script>
-import Axios from "axios";
 export default {
   async mounted() {
-    const baseUrl = window.secret.restUrl;
-
-    // sample link - http://localhost/mckl/wp-json/wp/v2/programme?programme_category=5
-    this.all_categories = await Axios.get(
-      `${baseUrl}wp/v2/programme_category?per_page=5`
-    );
+    const res = await fetch("https://mckl.edu.my/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: `
+query ProgrammeQuery {
+  programmeCategories(where: {orderby: TERM_ORDER, order: ASC}) {
+    nodes {
+      name
+      slug
+      id
+    }
+  }
+}
+        `,
+      }),
+    });
+    this.programmes_category = await res.json();
   },
   data() {
     return {
+      programmes_category: null,
       all_categories: null,
     };
   },
   computed: {
-    enabled_categories() {
-      if (this.all_categories === null) return;
-      let output = this.all_categories.data;
-      output = output.filter(
-        (programme_category) =>
-          programme_category.acf.show_category == true &&
-          programme_category.count > 0
-      );
-      return output;
+    categories() {
+      if (this.programmes_category != null)
+        return this.programmes_category.data.programmeCategories.nodes;
     },
   },
 };

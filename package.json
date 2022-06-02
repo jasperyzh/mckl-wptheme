@@ -14,6 +14,7 @@
     "aos": "^3.0.0-beta.6",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "bootstrap-icons": "^1.8.3",
     "core-js": "^3.6.5",
     "rellax": "^1.12.1",
     "tiny-slider": "^2.9.3",

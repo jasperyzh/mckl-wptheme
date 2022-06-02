@@ -36,10 +36,8 @@ export default {
       switch (this.secret.currentBlogId) {
         case "1":
           return "Kuala Lumpur Campus";
-          break;
         case "5":
           return "Penang, Pykett Campus";
-          break;
         default:
           return "Select a campus";
       }
@@ -49,7 +47,9 @@ export default {
 </script>
 
 <style lang="scss">
-@use "../scss/abstract" as *;
+// @use "../scss/abstract" as *;
+@import "../scss/abstract/variable";
+@import "bootstrap/scss/bootstrap-grid.scss";
 
 .btn-dropdown {
   border-radius: 0;

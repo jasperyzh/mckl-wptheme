@@ -10,7 +10,12 @@
           <div class="card">
             <figure class="ratio--16x9 overflow-hidden">
               <img
-                class="object-fit-cover"
+                style="
+                  object-fit: cover;
+                  width: 100%;
+                  height: 100%;
+                  object-position: center center;
+                "
                 :src="
                   item.featured_media_url
                     ? item.featured_media_url
