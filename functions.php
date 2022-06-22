@@ -130,13 +130,7 @@ require get_template_directory() . '/inc/mckl-cpt-programme.php';
 require get_template_directory() . '/inc/snippet-bootstrap-pagination.php';
 
 
-// add widgets
-
-// register Foo_Widget widget
-// function register_foo_widget() {
-//     register_widget( 'Foo_Widget' );
-// }
-// add_action( 'widgets_init', 'register_foo_widget' );
+// add widgets area
 
 add_action('widgets_init', 'register_sidebars_mckl');
 function register_sidebars_mckl()
@@ -161,6 +155,21 @@ function register_sidebars_mckl()
 			'after_widget'  => '</div>',
 			// 'before_title'  => '<h3 class="widget-title">',
 			// 'after_title'   => '</h3>',
+		)
+	);
+
+	// vue rendering
+	register_sidebar(
+		array(
+			'id'            => 'why_mckl',
+			'name'          => __('Why MCKL'),
+			'description'   => __('Section to explains Why MCKL.'),
+			'before_widget' => '',
+			'after_widget'  => '',
+			'before_title'  => '<h2 class="mb-3 text-center">',
+			'after_title'   => '</h2>',
+			'before_sidebar'  => '',
+			'after_sidebar'   => '',
 		)
 	);
 }

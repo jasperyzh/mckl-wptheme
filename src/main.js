@@ -4,16 +4,20 @@ import "@/scss/style.scss";
 import SiteHeader from "./js/SiteHeaderSlim";
 import { tns } from "tiny-slider/src/tiny-slider";
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   // site-header
   if (document.querySelector(".site-header")) {
     new SiteHeader(".site-header", 20);
   }
 
   // programmes-testimonial
-  if (document.querySelector('.elementor-section.tns-testimonial .elementor-container')) {
+  if (
+    document.querySelector(
+      ".elementor-section.tns-testimonial .elementor-container"
+    )
+  ) {
     tns({
-      container: '.elementor-section.tns-testimonial .elementor-container',
+      container: ".elementor-section.tns-testimonial .elementor-container",
       items: 1,
       slideBy: 1,
       autoplay: true,
@@ -30,51 +34,53 @@ document.addEventListener('DOMContentLoaded', () => {
       ],
     });
   }
+});
 
-})
+import Vue from "vue";
+// Vue.config.productionTip = false;
 
-// images
-// import "./assets/images/logo-mckl-horizontal-white.svg";
-
-import Vue from 'vue'
-import Axios from "axios";
-
-// // Axios installed globally
-Vue.use({
-  install(Vue) {
-    Vue.prototype.$api = Axios.create({
-      baseURL: window.secret.restUrl + 'wp/v2/'
-    })
-    Vue.prototype.$api_nobaseurl = Axios.create({
-      baseURL: ''
-    })
-  }
-})
-
-// import ProgrammeSelection from "./components/ProgrammeSelection.vue";
-import ProgrammeSelection2 from "./components/ProgrammeSelection2.vue";
-import ProgrammeSelectionDropdown from "./components/ProgrammeSelectionDropdown.vue";
-import WhyMckl from "./components/WhyMckl.vue";
+// import AboutTimeline from "./components/AboutTimeline.vue";
+import ProgrammeDetail from "./components/ProgrammeDetail.vue";
+import ProgrammeDetail2 from "./components/ProgrammeDetail2.vue";
+import ProgrammeLead from "./components/ProgrammeLead.vue";
+import ProgrammesList from "./components/ProgrammesList.vue";
+import ProgrammesDropdown from "./components/ProgrammesDropdown.vue";
 import PostNews from "./components/PostNews.vue";
 import PostEvents from "./components/PostEvents.vue";
-import ProgrammeLead from "./components/ProgrammeLead.vue";
-import ProgrammeDetail from "./components/ProgrammeDetail.vue";
-import ContentTimeline from "./components/ContentTimeline.vue";
-import CampusDropdown from "./components/CampusDropdown.vue";
-
-Vue.config.productionTip = false;
+import NavCampusDropdown from "./components/NavCampusDropdown.vue";
+import WhyMckl from "./components/WhyMckl.vue";
 
 let vueApp = {
-  // "#programme-selection": ProgrammeSelection,
-  "#programme-selection2": ProgrammeSelection2,
-  "#programme-selection-dropdown": ProgrammeSelectionDropdown,
-  "#why-mckl": WhyMckl,
-  "#post-news": PostNews,
-  "#post-events": PostEvents,
-  "#programme-lead": ProgrammeLead,
+  /**
+   * https://mckl.edu.my/about-mckl
+   */
+  // "#content-timeline": AboutTimeline, // 220623 - not activated
+
+  /**
+   * https://mckl.edu.my/programme/*
+   */
   "#programme-detail": ProgrammeDetail,
-  "#content-timeline": ContentTimeline,
-  "#campus-dropdown": CampusDropdown,
+  "#programme-detail2": ProgrammeDetail2, // new layout -> php instead
+  "#programme-lead": ProgrammeLead,
+
+  /**
+   * https://mckl.edu.my/programmes
+   */
+  "#programmes_list": ProgrammesList,
+  "#programmes_dropdown": ProgrammesDropdown,
+
+  /**
+   * https://mckl.edu.my/
+   */
+  "#campus-dropdown": NavCampusDropdown,
+  "#post-events": PostEvents,
+  "#post-news": PostNews,
+
+  /**
+   * https://mckl.edu.my/programmes/
+   * https://mckl.edu.my/admission/
+   */
+  "#why_mckl": WhyMckl,
 };
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -82,11 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector(key)) {
       console.log("vue-", key);
       new Vue({
-        render: h => h(vueApp[key]),
+        render: (h) => h(vueApp[key]),
       }).$mount(key);
     }
   }
 });
-
-
-

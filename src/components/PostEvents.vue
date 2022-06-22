@@ -1,119 +1,99 @@
 <template>
-  <section id="post-news" class="color__invert">
+  <section id="post-news">
     <div class="container-lg">
-      <div class="row row-cols-1">
-        <!-- start row -->
-
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1">
         <div
-          class="col my-2 px-lg-2"
-          v-for="(item, index) in posts"
-          :key="`news-${index}`"
+          class="col px-2 mb-3"
+          v-for="(item, index) in content"
+          :key="`card-events-${index}`"
         >
-          <div class="card">
-            <div class="row no-gutters flex-md-nowrap">
-              <div
-                class="
-                  col-12 col-sm-auto col-md-5
-                  mx-auto
-                  d-flex
-                  align-items-center
-                "
-              >
-                <figure class="ratio--16x9 overflow-hidden">
-                  <img
-                    style="
-                      object-fit: cover;
-                      width: 100%;
-                      height: 100%;
-                      object-position: center center;
-                    "
-                    :src="
-                      item.featured_media_url
-                        ? item.featured_media_url
-                        : `${secret.siteUrl}/wp-content/uploads/2021/07/mckl-logo.jpg`
-                    "
-                    :alt="item.title.rendered"
-                  />
-                </figure>
-              </div>
-              <div class="col-12 col-sm-auto flex-fill mx-auto bg__blue">
-                <div class="card-body">
-                  <a :href="item.link">
-                    <h5 class="card-title h6" v-html="item.title.rendered"></h5>
-                  </a>
-                  <p class="card-text small" v-html="item.excerpt.rendered"></p>
-                </div>
-                <footer class="card-footer">
-                  <a :href="item.link" class="btn">Read More ></a>
-                </footer>
-              </div>
-            </div>
-          </div>
+          <card-article
+            class="card-article--horizontal"
+            :item="item"
+          ></card-article>
         </div>
-        <!-- end row -->
       </div>
     </div>
   </section>
 </template>
 
 
-
 <script>
-import Axios from "axios";
+import CardArticle from "./general/CardArticle.vue";
 
 export default {
+  components: { CardArticle },
   async mounted() {
-    this.secret = window.secret;
-    const baseUrl = window.secret.restUrl;
+    const get_site_url =
+      window.secret.siteUrl != "http://localhost/mckl"
+        ? window.secret.siteUrl
+        : "https://mckl.edu.my";
 
-    // get news: http://localhost/mckl/wp-json/wp/v2/categories/16 (events)
-    const res = await Axios.get(
-      `${baseUrl}wp/v2/posts?categories=16&per_page=4`
-    );
-    this.posts = res.data;
-    // console.log(res.data);
-  },
-  data() {
-    return {
-      secret: {},
-      posts: [],
-    };
-  },
-};
-</script>
+    const category_name = "events";
 
-<style lang="scss" scoped>
-@use "../scss/abstract" as *;
-
-.card {
-  height: 100%;
-  border: 0;
-  border-radius: 0;
-  box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4);
-}
-.card-body {
-  background-color: $color-blue;
-  color: $color-white;
-  padding-bottom: 0;
-
-  .card-title {
-    color: $color-orange;
-    font-weight: bold;
-  }
-}
-.card-footer {
-  background-color: $color-blue;
-  border: 0;
-  border-radius: 0;
-
-  .btn {
-    color: $color-orange;
-    font-weight: bold;
-    padding: 0;
-    &:hover,
-    &:active {
-      color: $color-white;
+    try {
+      const res = await fetch(`${get_site_url}/graphql`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: `
+query GetPosts($categoryName: String = "${category_name}") {
+  posts(
+    where: {categoryName: $categoryName, orderby: {field: DATE, order: DESC}}
+    first: 4
+  ) {
+    nodes {
+      id
+      link
+      title
+      excerpt
+      featuredImage {
+        node {
+          mediaItemUrl
+        }
+      }
     }
   }
 }
-</style>
+    `,
+        }),
+      });
+
+      this.response = await res.json();
+    } catch (err) {
+      console.log("gql-programme_detail_2", err);
+    }
+  },
+  data() {
+    return {
+      response: null,
+    };
+  },
+  computed: {
+    content() {
+      if (this.response != null) {
+        let content = this.response.data.posts.nodes;
+
+        content.forEach((item, index) => {
+          content[index].featuredImage =
+            content[index].featuredImage.node.mediaItemUrl;
+        });
+
+        return content;
+        /* // replace
+        content.featuredImage = content.featuredImage.node.mediaItemUrl;
+        // merge
+        Object.assign(content, content.programme);
+        delete content.programme;
+        // replace
+        content.downloadBrochure = content.downloadBrochure.mediaItemUrl;
+        content.programmeCategories =
+          content.programmeCategories.edges[0].node.name;
+        return content; */
+      } else {
+        return null;
+      }
+    },
+  },
+};
+</script>
