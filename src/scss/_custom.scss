@@ -1,37 +1,3 @@
-html {
-    scroll-behavior: smooth;
-}
-body {
-    font-family: $font-body;
-    color: $color-darkgrey;
-    font-size: 15px;
-    line-height: 1.6;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-    font-family: $font-heading;
-    font-weight: bold;
-    color: $color-darkblue;
-}
-a {
-    color: $color-darkblue;
-    transition: color 0.15s ease;
-    &:hover,
-    &:active {
-        color: $color-blue;
-        text-decoration: none;
-    }
-}
 .ratio--4x3 {
     aspect-ratio: 4/3;
 }
@@ -372,7 +338,6 @@ table {
 }
 
 // programme testimonial
-
 .tns-outer {
     position: relative;
     overflow: hidden;
@@ -418,6 +383,7 @@ table {
         border-color: $color-blue;
     }
 }
+
 // elementor-addon
 .eael-adv-accordion .eael-accordion-list .eael-accordion-header {
     .fa-accordion-icon,
@@ -459,13 +425,13 @@ table {
     }
 }
 
-.navigation.post-navigation, article.entry {
-    
+.navigation.post-navigation,
+article.entry {
     padding-left: 1.115rem;
     padding-right: 1.115rem;
 }
 
 // elementor-addon
 .eael-adv-accordion .eael-accordion-list .eael-accordion-content p {
-	margin-bottom: 0.75rem;
+    margin-bottom: 0.75rem;
 }

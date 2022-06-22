@@ -1,0 +1,147 @@
+// dropdown hover effect
+// https://stackoverflow.com/questions/16214326/bootstrap-dropdown-with-hover
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; // remove the gap so it doesn't close
+}
+
+// padding
+.site-header {
+    .navbar {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    #navbar-primary {
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+
+        @include media-breakpoint-down(md) {
+            position: fixed;
+            top: 40px;
+            background-color: $color-blue;
+            left: 0px;
+            right: 0px;
+            padding: 40px 15px 15px;
+            z-index: -1;
+        }
+    }
+}
+
+.site-logo {
+    position: relative;
+    flex: 1 1 146px;
+    align-self: start;
+    &__wrap {
+        position: absolute;
+        top: 0;
+        background-color: $color-white;
+        padding: 1rem;
+        .site-header & {
+            transition: all 0.3s ease;
+            transform-origin: top center;
+            transform: scale(1);
+
+            @include media-breakpoint-down(md) {
+                transform: scale(0.5);
+            }
+        }
+        .site-header.slim & {
+            transform: scale(0.52);
+        }
+    }
+}
+//temp
+.site-main {
+    margin-top: 38px;
+
+    @include media-breakpoint-up(xl) {
+        margin-top: 70px;
+    }
+}
+
+.site-header {
+    background-color: $color-darkblue;
+    color: $color-white;
+
+    .admin-bar &.fixed-top {
+        margin-top: 46px !important;
+
+        @media only screen and (min-width: 783px) {
+            margin-top: 32px !important;
+        }
+    }
+
+    &.has-logo.has-title-and-tagline {
+        .site-branding {
+            display: none;
+        }
+        .logo-wrap {
+            min-width: 140px;
+
+            .site-logo {
+                background-color: #fff;
+                box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+                transition: all 0.3s ease;
+                width: 48px;
+
+                @include media-breakpoint-up(md) {
+                    width: 140px;
+                    position: absolute;
+                    top: 0;
+                    padding: 1rem;
+                    z-index: 100;
+                }
+            }
+        }
+    }
+    .navbar {
+        flex-wrap: nowrap;
+        justify-content: flex-end;
+
+        &--max-width {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .menu-wrapper {
+            list-style-type: none;
+            margin: 0;
+            padding: 0.5rem 0;
+        }
+        .menu-item {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        a {
+            color: #fff;
+            font-size: 0.925rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            &:hover,
+            &:active {
+                color: $color-orange;
+                text-decoration: none;
+            }
+
+            &.dropdown-item {
+                color: $color-darkorange;
+                @include media-breakpoint-down(sm) {
+                    white-space: initial;
+                    font-size: 0.85rem;
+                }
+            }
+        }
+        .primary-navigation {
+            width: 100%;
+
+            .primary-menu-container {
+                margin: auto;
+                margin-left: 0;
+            }
+            .support-menu-container {
+                margin: auto;
+                margin-right: 0;
+            }
+        }
+    }
+}

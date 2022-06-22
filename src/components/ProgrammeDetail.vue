@@ -1,85 +1,134 @@
 <template>
-  <section id="programme-detail" class="logo-spacing-desktop" v-if="acf != null">
-    <div class="container-fluid">
-      <div class="row">
+  <section id="programme-detail" class="programme-detail__logo-margin">
+    <div class="container-fluid px-0">
+      <div class="row no-gutters justify-content-center">
         <div class="col">
-          <h1 class="font-weight-bold" v-html="content.title.rendered"></h1>
-          <p class="lead" v-html="programme_category.name"></p>
+          <h1 v-html="content.title"></h1>
+          <p class="lead">{{ content.programmeCategories }}</p>
+
           <p>
-            <small>{{ acf["Approval Code"] }}</small>
+            <small>{{ content.approvalCode }}</small>
           </p>
 
-          <div
-            v-if="acf['Welcome Message']"
-            v-html="acf['Welcome Message']"
-          ></div>
+          <div v-html="content.welcomeMessage"></div>
 
-          <div class="d-flex">
-            <span class="badge badge__mckl" v-if="acf['Course Mode']">{{
-              acf["Course Mode"]
+          <p>
+            <span class="badge badge-secondary mr-1">{{
+              content.courseMode
             }}</span>
-            <span class="badge badge__mckl" v-if="acf['Course Duration']">{{
-              acf["Course Duration"]
+            <span class="badge badge-secondary mr-1">{{
+              content.courseDuration
             }}</span>
-          </div>
+          </p>
 
-          <p class="lead mb-0" v-if="acf['Intake']">Next Intake</p>
-          <h4 class="font-weight-bold">{{ acf["Intake"] }}</h4>
+          <p class="lead">
+            Next Intake: <span class="h4">{{ content.intake }}</span>
+          </p>
 
-          <a
-            class="btn btn-info"
-            :href="acf['Download Brochure'].url"
-            download
-            v-if="acf['Download Brochure']"
-            >Download Brochure</a
-          >
+          <p>
+            <a
+              class="btn btn-info"
+              :href="content.downloadBrochure"
+              download
+              >Download Brochure</a
+            >
+          </p>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-
 <script>
-// import WhyMckl from "@/components/WhyMckl";
-
 export default {
-  //   components: { WhyMckl },
+  // 220622-considering moving to PHP for SEO purposes
   async mounted() {
-    // this.secret = window.secret;
+    const get_site_url =
+      window.secret.siteUrl != "http://localhost/mckl"
+        ? window.secret.siteUrl
+        : "https://mckl.edu.my";
+
+    const page_id = window.secret.pageId;
 
     try {
-      let response = await this.$api.get(`programme/${window.secret.pageId}`);
-      this.content = response.data;
-      this.acf = response.data.acf;
-      //   console.log(response.data._links['wp:term'][0].href)
+      const res = await fetch(`${get_site_url}/graphql`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: `
+query ProgrammeDetail($id: ID = "${page_id}") {
+  programme(idType: DATABASE_ID, id: $id) {
+    id
+    title
+    slug
+    excerpt
+    menuOrder
+    link
+    featuredImage {
+      node {
+        mediaItemUrl
+      }
+    }
+    programme {
+      approvalCode
+      intake
+      courseMode
+      courseDuration
+      welcomeMessage
+      downloadBrochure {
+        mediaItemUrl
+      }
+    }
+    programmeCategories {
+      edges {
+        node {
+          name
+        }
+      }
+    }
+  }
+}
+        `,
+        }),
+      });
 
-      let link_programme_category = response.data._links["wp:term"][0].href;
-      let response2 = await this.$api_nobaseurl.get(link_programme_category);
-      this.programme_category = response2.data[0];
+      this.response = await res.json();
     } catch (err) {
-      console.log(err);
+      console.log("gql-programme_detail_2", err);
     }
   },
   data() {
     return {
-      //   secret: {},
-      content: {},
-      acf: null,
-      programme_category: {},
+      response: null,
     };
+  },
+  computed: {
+    content() {
+      if (this.response != null) {
+        let content = this.response.data.programme;
+
+        // replace
+        content.featuredImage = content.featuredImage.node.mediaItemUrl;
+        // merge
+        Object.assign(content, content.programme);
+        delete content.programme;
+        // replace
+        content.downloadBrochure = content.downloadBrochure.mediaItemUrl;
+        content.programmeCategories =
+          content.programmeCategories.edges[0].node.name;
+        return content;
+      } else {
+        return null;
+      }
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@use "../scss/abstract" as *;
-.badge__mckl {
-  background-color: $color-orange;
-  margin-right: 8px;
-  margin-bottom: 1rem;
-}
-.logo-spacing-desktop {
+@import "bootstrap/scss/bootstrap-grid.scss";
+
+.programme-detail__logo-margin {
   @include media-breakpoint-up(md) {
     margin-top: 6rem;
   }

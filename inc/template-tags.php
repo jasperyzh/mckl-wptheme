@@ -343,7 +343,7 @@ if (!function_exists('mckl_entry_meta_header')) {
 				$categories_list = get_the_category_list(__(', ', 'twentytwentyone'));
 				if ($categories_list) {
 					printf(
-						'<span class="badge bg__blue color__invert font-size-normal my-3 mr-2">' . esc_html__('%s', 'twentytwentyone') . ' </span>',
+						'<span class="badge bg-primary text-light--invert my-3 mr-2">' . esc_html__('%s', 'twentytwentyone') . ' </span>',
 						$categories_list // phpcs:ignore WordPress.Security.EscapeOutput
 					);
 				}

@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-auto">
           <h2 class="h4 programme__title">
-            <i class="bi bi-alarm-fill"></i> {{ prog_cat.name }}
+            {{ prog_cat.name }}
           </h2>
         </div>
       </div>

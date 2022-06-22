@@ -86,15 +86,15 @@ add_filter('get_the_archive_title', 'mckl_archive_title');
 						</figure>
 					</div>
 					<div class="col-md-6">
-						<div class="card-body bg__blue color__invert h-100 p-md-5">
-							<h4 class="color__orange"><?php echo $highlight_title; ?></h4>
+						<div class="card-body bg-primary text-light h-100 p-md-5">
+							<h4 class="text-secondary"><?php echo $highlight_title; ?></h4>
 							<a href="<?php the_permalink($highlight_post->ID); ?>">
-								<h5 class="card-title"><?php echo $highlight_post->post_title; ?></h5>
+								<h5 class="card-title text-secondary"><?php echo $highlight_post->post_title; ?></h5>
 							</a>
 							<?php if ($highlight_post->post_excerpt) : ?>
 								<p class="card-text"><?php echo $highlight_post->post_excerpt; ?></p>
 							<?php endif; ?>
-							<a class="font-weight-bold" href="<?php the_permalink($highlight_post->ID); ?>">Read More</a>
+							<a class="font-weight-bold text-secondary" href="<?php the_permalink($highlight_post->ID); ?>">Read More</a>
 						</div>
 					</div>
 				</div>

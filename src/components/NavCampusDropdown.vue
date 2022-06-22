@@ -47,8 +47,7 @@ export default {
 </script>
 
 <style lang="scss">
-// @use "../scss/abstract" as *;
-@import "../scss/abstract/variable";
+@import "../scss/override";
 @import "bootstrap/scss/bootstrap-grid.scss";
 
 .btn-dropdown {

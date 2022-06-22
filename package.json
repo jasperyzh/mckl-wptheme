@@ -12,13 +12,12 @@
     "@vuelidate/core": "^2.0.0-alpha.24",
     "@vuelidate/validators": "^2.0.0-alpha.21",
     "aos": "^3.0.0-beta.6",
-    "axios": "^0.21.1",
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^4.6.1",
     "bootstrap-icons": "^1.8.3",
     "core-js": "^3.6.5",
     "rellax": "^1.12.1",
     "tiny-slider": "^2.9.3",
-    "vue": "^2.6.11"
+    "vue": "^2.6.14"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -27,8 +26,8 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.32.8",
-    "sass-loader": "^10.1.1",
+    "sass": "^1.50.0",
+    "sass-loader": "^10.2.1",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

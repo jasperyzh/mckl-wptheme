@@ -12,6 +12,7 @@ $color-darkgrey: #313131;
 $font-body: "Noto Sans", sans-serif;
 $font-heading: "Montserrat", sans-serif;
 
+// bootstrap
 $primary: #0052a0;
 $secondary: #fcaf17;
 
@@ -19,3 +20,15 @@ $enable-responsive-font-sizes: true;
 $btn-border-radius: 0;
 $btn-border-radius-lg: 0;
 $btn-border-radius-sm: 0;
+
+$font-family-base: $font-body;
+$body-color: $color-darkgrey;
+$font-size-base: 0.9375rem;
+
+$headings-font-family: $font-heading;
+$headings-font-weight: bold;
+$headings-color: $color-darkblue;
+
+$link-color: $color-darkblue;
+$link-hover-color: $primary;
+$link-hover-decoration: none;

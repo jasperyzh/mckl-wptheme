@@ -8,6 +8,7 @@
           :key="`why_mckl-${index}`"
         >
           <card-icon :item="item"></card-icon>
+          <i class="bi bi-alarm-fill"></i>
         </div>
       </div>
     </div>

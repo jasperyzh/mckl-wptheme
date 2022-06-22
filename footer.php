@@ -21,7 +21,7 @@
 
 
 <!-- bootstrap sample -->
-<footer id="site-footer" class="footer bg__darkblue color__invert text-center text-lg-left">
+<footer id="site-footer" class="footer bg-darkblue text-light--invert text-center text-lg-left">
 
 	<div class="container-fluid py-5">
 		<div class="row row-cols-1 row-cols-lg-5">
@@ -47,7 +47,7 @@
 				wp_nav_menu(
 					[
 						'theme_location' => 'footer',
-						'items_wrap'      => '<ul id="footer-menu-list" class="%2$s mb-3">%3$s</ul>',
+						'items_wrap'      => '<ul id="footer-menu-list" class="%2$s mb-3 list-unstyled">%3$s</ul>',
 						'container'      => false,
 						'depth'          => 1,
 						'link_before'    => '<span>',
@@ -64,7 +64,7 @@
 				wp_nav_menu(
 					[
 						'theme_location' => 'quick',
-						'items_wrap'      => '<ul id="quick-menu-list" class="%2$s mb-3">%3$s</ul>',
+						'items_wrap'      => '<ul id="quick-menu-list" class="%2$s mb-3 list-unstyled">%3$s</ul>',
 						'container'      => false,
 						'depth'          => 1,
 						'link_before'    => '<span>',
@@ -80,11 +80,11 @@
 				wp_nav_menu(
 					[
 						'theme_location' => 'social',
-						'items_wrap'      => '<ul id="social-menu-list" class="%2$s mb-3">%3$s</ul>',
+						'items_wrap'      => '<ul id="social-menu-list" class="%2$s mb-3 list-unstyled d-flex">%3$s</ul>',
 						'container'      => false,
 						'depth'          => 1,
-						'link_before'    => '<span>',
-						'link_after'     => '</span>',
+						// 'link_before'    => '<div>',
+						// 'link_after'     => '</div>',
 						'fallback_cb'    => false,
 					]
 				);
@@ -92,7 +92,7 @@
 			</div>
 		</div>
 
-		<hr class="footer__separator">
+		<hr class="border-light my-3 mt-lg-5" style="opacity:0.3">
 
 		<div class="row">
 			<div class="col-12 col-md">
@@ -102,13 +102,6 @@
 						<?php dynamic_sidebar('footer__copy'); ?>
 					</aside>
 				<?php endif; ?>
-				<!-- <p>
-					<small>
-						© 2021 Methodist College Kuala Lumpur (DK144(W)) All Rights Reserved.
-						<br />
-						Wesleyan Education Services Sdn Bhd (200101005044 / 540800-U)
-					</small>
-				</p> -->
 			</div>
 		</div>
 	</div>

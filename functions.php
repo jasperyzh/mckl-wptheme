@@ -10,9 +10,9 @@
  * @since Twenty Twenty-One 1.0
  */
 
-if (SITECOOKIEPATH != COOKIEPATH) {
-	setcookie(TEST_COOKIE, 'WP Cookie check', 0, SITECOOKIEPATH, COOKIE_DOMAIN);
-}
+// if (SITECOOKIEPATH != COOKIEPATH) {
+// 	setcookie(TEST_COOKIE, 'WP Cookie check', 0, SITECOOKIEPATH, COOKIE_DOMAIN);
+// }
 
 /**
  * Calculate classes for the main <html> element.
@@ -29,8 +29,6 @@ function twentytwentyone_the_html_classes()
 	}
 	echo 'class="' . esc_attr($classes) . '"';
 }
-
-
 
 // Custom template tags for the theme.
 require get_template_directory() . '/inc/template-tags.php';
@@ -60,8 +58,6 @@ function wp_enqueue()
 		wp_enqueue_style('vue', $url . '/dist/css/app.css', array(), filemtime($themecsspath), false);
 	}
 
-
-
 	wp_localize_script('jquery', 'secret', array(
 		'siteUrl' => get_site_url(),
 		'ajaxUrl' => admin_url('admin-ajax.php'),
@@ -83,7 +79,6 @@ function wp_enqueue()
 		'currentBlogId' => get_current_blog_id()
 	));
 }
-
 
 /**
  * register nav menu
@@ -120,18 +115,12 @@ add_theme_support('custom-logo', [
 
 add_theme_support('widgets');
 
-
+// bootstrap-wordpress customization
 require get_template_directory() . '/inc/mckl-menu-primary.php';
-
-require get_template_directory() . '/inc/mckl-restapi.php';
-
-require get_template_directory() . '/inc/mckl-cpt-programme.php';
 
 require get_template_directory() . '/inc/snippet-bootstrap-pagination.php';
 
-
 // add widgets area
-
 add_action('widgets_init', 'register_sidebars_mckl');
 function register_sidebars_mckl()
 {
@@ -144,6 +133,8 @@ function register_sidebars_mckl()
 			'after_widget'  => '</div>',
 			'before_title'  => '<h3 class="widget-title">',
 			'after_title'   => '</h3>',
+			'before_sidebar'  => '',
+			'after_sidebar'   => '',
 		)
 	);
 	register_sidebar(
@@ -153,8 +144,6 @@ function register_sidebars_mckl()
 			'description'   => __('A widget area for Footer Copy.'),
 			'before_widget' => '<div id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</div>',
-			// 'before_title'  => '<h3 class="widget-title">',
-			// 'after_title'   => '</h3>',
 		)
 	);
 
@@ -164,12 +153,18 @@ function register_sidebars_mckl()
 			'id'            => 'why_mckl',
 			'name'          => __('Why MCKL'),
 			'description'   => __('Section to explains Why MCKL.'),
-			'before_widget' => '',
-			'after_widget'  => '',
 			'before_title'  => '<h2 class="mb-3 text-center">',
 			'after_title'   => '</h2>',
-			'before_sidebar'  => '',
-			'after_sidebar'   => '',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'id'            => 'why_mckl',
+			'name'          => __('Why MCKL'),
+			'description'   => __('Section to explains Why MCKL.'),
+			'before_title'  => '<h2 class="mb-3 text-center">',
+			'after_title'   => '</h2>',
 		)
 	);
 }
